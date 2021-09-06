@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useDrop } from 'react-dnd'
 import styled from 'styled-components'
+import disablePointerEventsContext from '../contexts/disablePointerEventsContext'
 
 const Wrapper = styled.div`
-  pointer-events: auto;
+  pointer-events: ${props => (props.disablePointerEvents ? 'none' : 'auto')};
 `
 
 const DropWrapper = ({ dropLayerId, dropLayers, onDrop, children }) => {
@@ -21,8 +22,10 @@ const DropWrapper = ({ dropLayerId, dropLayers, onDrop, children }) => {
     })
   })
 
+  const { disablePointerEvents } = useContext(disablePointerEventsContext)
+
   return (
-    <Wrapper ref={drop} className={'drop-wrapper'}>
+    <Wrapper disablePointerEvents={disablePointerEvents} ref={drop} className={'drop-wrapper'}>
       {React.cloneElement(children, { isOver, canDrop })}
     </Wrapper>
   )

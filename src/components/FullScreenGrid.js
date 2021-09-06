@@ -1,16 +1,18 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import ChatBox from './ChatBox'
-import DropBox from './DropBox'
+import DropBox from '../ui/DropBox'
 
-import DropWrapper from './DropWrapper'
+import DropWrapper from '../ui/DropWrapper'
+import ThemeFullScreenMode from '../ThemeFullScreenMode'
+import disablePointerEventsContext from '../contexts/disablePointerEventsContext'
 
 const Container = styled.div`
   display: grid;
   grid-template-columns: 200px 200px;
   height: 100%;
   row-gap: 20%;
-  background-color: blue;
+
   width: 100%;
   justify-content: space-between;
 `
@@ -36,6 +38,10 @@ const FullScreenGrid = () => {
     }
   ])
 
+  // Keep track whether we are disabling pointer events throughout the component hiearchy
+  // for fullscreen mode view. Basically user should be able to pause/play/resume video when wanted.
+  const [disablePointerEvents, setDisablePointerEvents] = useState(true)
+
   const [currentPosition, setCurrentPosition] = useState(0)
 
   const onDrop = (dropLayerId, monitor, dropLayers) => {
@@ -52,15 +58,17 @@ const FullScreenGrid = () => {
   }
 
   return (
-    <Container>
-      {dropLayers.map(dropLayer => {
-        return (
-          <DropWrapper dropLayerId={dropLayer.id} dropLayers={dropLayers} onDrop={onDrop}>
-            {dropLayer.hasChatBox ? <ChatBox currentPosition={currentPosition} /> : <DropBox />}
-          </DropWrapper>
-        )
-      })}
-    </Container>
+    <disablePointerEventsContext.Provider value={{ disablePointerEvents, setDisablePointerEvents }}>
+      <Container>
+        {dropLayers.map(dropLayer => {
+          return (
+            <DropWrapper dropLayerId={dropLayer.id} dropLayers={dropLayers} onDrop={onDrop}>
+              {dropLayer.hasChatBox ? <ChatBox currentPosition={currentPosition} /> : <DropBox />}
+            </DropWrapper>
+          )
+        })}
+      </Container>
+    </disablePointerEventsContext.Provider>
   )
 }
 

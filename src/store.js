@@ -1,8 +1,10 @@
 import { createStore, combineReducers } from 'redux'
 import liveChatReducer from './reducers/livechat'
+import resizableBoxReducer from './reducers/resizableBox'
 
 const reducer = combineReducers({
-  livechat: liveChatReducer
+  livechat: liveChatReducer,
+  resizableBox: resizableBoxReducer
 })
 
 const store = createStore(reducer)
