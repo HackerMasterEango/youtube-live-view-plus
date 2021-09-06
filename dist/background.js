@@ -1,1 +1,0 @@
-chrome.tabs.onUpdated.addListener(((e,t,c)=>{"complete"===t.status&&c.url.includes("http")&&chrome.tabs.executeScript(e,{file:"./inject.js"},(()=>{chrome.tabs.executeScript(e,{file:"./content-script.bundle.js"},(()=>{console.log("im i a meme")}))}))}));
