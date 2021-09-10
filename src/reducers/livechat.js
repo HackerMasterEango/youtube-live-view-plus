@@ -2,6 +2,10 @@ const actionTypes = {
   ADD: 'ADD'
 }
 
+// const initialState = {
+//   chatMessages: []
+// }
+
 const initialState = {
   chatMessages: []
 }

@@ -1,24 +1,30 @@
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { ThemeProvider } from 'styled-components'
+import WebFont from 'webfontloader'
+import useTheme from './hooks/useTheme'
 
-// TODO make as reducer
-const theme = {
-  chatBox: {
-    paddingRight: 0,
-    paddingTop: 0,
-    paddingBottom: 0,
-    paddingLeft: 0,
+const ThemeFullScreenMode = ({ children }) => {
+  const theme = useTheme()
+  const [selectedTheme, setSelectedTheme] = useState(undefined)
 
-    colors: {
-      backgroundColor: {
-        r: 23,
-        g: 23,
-        b: 23,
-        a: 0.4
-      }
-    }
-  }
+  const themes = useSelector(state => state.fullScreenChatTheme)
+
+  useEffect(() => {
+    debugger
+    setSelectedTheme(themes[0])
+  }, [])
+
+  // Load google fonts
+  // useEffect(() => {
+  //   WebFont.load({
+  //     google: {
+  //       families: getFonts()
+  //     }
+  //   })
+  // })
+
+  return <>{selectedTheme && <ThemeProvider theme={selectedTheme}>{children}</ThemeProvider>}</>
 }
-
-const ThemeFullScreenMode = ({ children }) => <ThemeProvider theme={theme}>{children}</ThemeProvider>
 
 export default ThemeFullScreenMode

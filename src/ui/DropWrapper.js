@@ -13,7 +13,7 @@ const DropWrapper = ({ dropLayerId, dropLayers, onDrop, children }) => {
 
     drop: (item, monitor) => {
       // any state needed to change on dorp here i suppose.
-      debugger
+
       onDrop(dropLayerId, monitor, dropLayers)
     },
     collect: monitor => ({

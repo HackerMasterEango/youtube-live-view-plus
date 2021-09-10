@@ -1,4 +1,5 @@
-import React from 'react'
+/* global chrome*/
+import React, { useEffect } from 'react'
 
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
@@ -36,6 +37,12 @@ const Container = styled.div`
 `
 
 const ContentScript = () => {
+  useEffect(() => {
+    chrome.storage.sync.set({ themes: 'hello' }, function () {
+      //  A data saved callback omg so fancy
+    })
+  })
+
   return (
     <Wrapper>
       <GlobalStyle />

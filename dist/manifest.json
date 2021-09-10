@@ -6,5 +6,5 @@
   "background": {
     "scripts": [" ./background.js"]
   },
-  "permissions": ["tabs", "*://*.youtube.com/*"]
+  "permissions": ["tabs", "*://*.youtube.com/*", "storage"]
 }

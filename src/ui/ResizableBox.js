@@ -54,8 +54,6 @@ const ResizableBox = ({ width, height, children }) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    debugger
-
     /*Make resizable div by Hung Nguyen*/
     function makeResizableDiv(div) {
       const element = document.querySelector(div)

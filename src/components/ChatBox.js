@@ -7,6 +7,7 @@ import { rgba } from 'polished'
 import ResizableBox from '../ui/ResizableBox'
 import ChatMessage from './ChatMessage'
 import disablePointerEventsContext from '../contexts/disablePointerEventsContext'
+import ThemeFullScreenMode from '../ThemeFullScreenMode'
 
 const PositionalDiv = styled.div`
   position: fixed;
@@ -69,6 +70,7 @@ const ChatBox = ({ currentPosition }) => {
     // If we are dragging dont disable any pointer events on other components.
     if (isDragging) {
       setDisablePointerEvents(false)
+      debugger
       return
     }
 
@@ -77,15 +79,17 @@ const ChatBox = ({ currentPosition }) => {
   }, [isDragging])
 
   return (
-    <PositionalDiv currentPosition={currentPosition}>
-      <ResizableBox width={width} height={height}>
-        <Container disablePointerEvents={disablePointerEvents} className="wtf" ref={drag}>
-          {livechat.chatMessages.map(({ chatMessage, authorPhotoNode, authorName }) => (
-            <ChatMessage chatMessage={chatMessage} authorPhotoNode={authorPhotoNode} authorName={authorName} />
-          ))}
-        </Container>
-      </ResizableBox>
-    </PositionalDiv>
+    <ThemeFullScreenMode>
+      <PositionalDiv currentPosition={currentPosition}>
+        <ResizableBox width={width} height={height}>
+          <Container disablePointerEvents={disablePointerEvents} className="wtf" ref={drag}>
+            {livechat.chatMessages.map(({ chatMessage, authorPhotoNode, authorName }) => (
+              <ChatMessage chatMessage={chatMessage} authorPhotoNode={authorPhotoNode} authorName={authorName} />
+            ))}
+          </Container>
+        </ResizableBox>
+      </PositionalDiv>
+    </ThemeFullScreenMode>
   )
 }
 

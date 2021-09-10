@@ -45,8 +45,6 @@ const FullScreenGrid = () => {
   const [currentPosition, setCurrentPosition] = useState(0)
 
   const onDrop = (dropLayerId, monitor, dropLayers) => {
-    console.log(monitor.targetId)
-    debugger
     setDropLayers(
       [0, 1, 2, 3].map(id => ({
         id,
@@ -58,17 +56,19 @@ const FullScreenGrid = () => {
   }
 
   return (
-    <disablePointerEventsContext.Provider value={{ disablePointerEvents, setDisablePointerEvents }}>
-      <Container>
-        {dropLayers.map(dropLayer => {
-          return (
-            <DropWrapper dropLayerId={dropLayer.id} dropLayers={dropLayers} onDrop={onDrop}>
-              {dropLayer.hasChatBox ? <ChatBox currentPosition={currentPosition} /> : <DropBox />}
-            </DropWrapper>
-          )
-        })}
-      </Container>
-    </disablePointerEventsContext.Provider>
+    <ThemeFullScreenMode>
+      <disablePointerEventsContext.Provider value={{ disablePointerEvents, setDisablePointerEvents }}>
+        <Container>
+          {dropLayers.map(dropLayer => {
+            return (
+              <DropWrapper dropLayerId={dropLayer.id} dropLayers={dropLayers} onDrop={onDrop}>
+                {dropLayer.hasChatBox ? <ChatBox currentPosition={currentPosition} /> : <DropBox />}
+              </DropWrapper>
+            )
+          })}
+        </Container>
+      </disablePointerEventsContext.Provider>
+    </ThemeFullScreenMode>
   )
 }
 

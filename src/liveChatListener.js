@@ -19,8 +19,6 @@ const parseLivechatAndCommitToStore = livechatNode => {
     chatMessage
   }
 
-  console.log(chatMessage)
-
   store.dispatch(addLiveChat(liveChatObj))
 }
 
